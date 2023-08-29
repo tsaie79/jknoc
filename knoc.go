@@ -212,7 +212,10 @@ func (p *KNOCProvider) CreatePod(ctx context.Context, pod *v1.Pod) error {
 
 		if !hasInitContainers {
 			err = RemoteExecution(p, ctx, common.CREATE, distribution+container.Image, pod, container)
-
+			// print error message to screen
+			if err != nil {
+				fmt.Println(err.Error())
+			}
 		}
 		if err != nil {
 			pod.Status.ContainerStatuses = append(pod.Status.ContainerStatuses, v1.ContainerStatus{
